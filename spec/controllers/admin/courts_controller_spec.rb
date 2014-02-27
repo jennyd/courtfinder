@@ -7,7 +7,12 @@ describe Admin::CourtsController do
     controller.should_receive(:enable_varnish).never
     @user = User.create!(name: 'hello', admin: true, email: 'lol@biz.info', password: 'irrelevant')
     sign_in @user
+<<<<<<< HEAD:spec/controllers/admin/courts_controller_spec.rb
     @court = create(:court, name: 'A court of Law')    
+=======
+    @court = FactoryGirl.create(:court, name: 'A court of Law')   
+    @county = FactoryGirl.create(:court_type, :name => "County Court") 
+>>>>>>> 5064aaf... Make court types a required attribute of courts:spec/controllers/admin_courts_controller_spec.rb
   end
 
   it "displays a list of courts" do
@@ -25,7 +30,7 @@ describe Admin::CourtsController do
   it "purges the cache when a new court is created" do
     expect {
       controller.should_receive(:purge_all_pages)
-      post :create, court: { name: 'A court of LAW', latitude:50, longitude:0 }
+      post :create, court: { name: 'A court of LAW', latitude:50, longitude:0, court_type_ids: [@county.id] }
       response.should redirect_to(edit_admin_court_path(assigns(:court)))
     }.to change { Court.count }.by(1)
   end

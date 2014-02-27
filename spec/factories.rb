@@ -5,6 +5,7 @@ FactoryGirl.define do
     areas_of_law { create_list(:area_of_law, 2) }
     latitude 50
     longitude 0
+    court_types {FactoryGirl.create_list(:court_type, 2)}
   end
 
   factory :court_type do

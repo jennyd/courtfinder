@@ -34,6 +34,7 @@ class Court < ActiveRecord::Base
 
   validates :latitude, numericality: { greater_than:  -90, less_than:  90 }, presence: true, if: :has_visiting_address?
   validates :longitude, numericality: { greater_than: -180, less_than: 180 }, presence: true, if: :has_visiting_address?
+  validates :court_types, :presence => { :message => "can't be blank. Please select at least one court type." }
 
   validate :check_postcode_errors
 
