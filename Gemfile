@@ -48,6 +48,7 @@ gem 'simple_form'           # Build forms with ease
 gem 'rest-client'           # Accessing HTTP and REST resources (i.e. MoJ postcode lookup)
 gem 'ckeditor_rails'        # Adds a rich WYSIWYG text area
 gem 'geocoder'              # Check distances with latitude and longitude
+gem 'activerecord-postgis-adapter'
 gem 'devise'                # Authentication
 gem 'devise_invitable'      # Authentication invites
 gem 'rmagick'               # Resize uploaded images
