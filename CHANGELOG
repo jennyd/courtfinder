@@ -11,6 +11,7 @@
 * 66612298 - Warning for unassigned local authorities to Family court - Children
 * 66609784 - Search Family court for adoption application
 * 66609752 - Search Family court for divorce application
+* Postgresql geospatial queries
 
 2.5.3
 ---------------------

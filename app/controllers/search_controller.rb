@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-
+  respond_to :html, :json
   def index
     if params[:area_of_law] == 'Designated money claims'
       redirect_to(court_path('county-court-money-claims-centre'))
