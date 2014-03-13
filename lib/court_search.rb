@@ -72,7 +72,7 @@ class CourtSearch
     elsif area_of_law.type_children? || area_of_law.type_adoption? || area_of_law.type_divorce?
       courts = Court.for_council_and_area_of_law(lookup_council_name, area_of_law)
     end
-
+    
     if latlng
       if courts.present?
         # Calling near just so that court.distance works in the view, courts without location (lon, lat) are filtered out.

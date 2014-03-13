@@ -22,6 +22,9 @@
 2.5.4
 ---------------------
 * Added rescue block around audit csv function
+=======
+* Postgresql geospatial queries
+>>>>>>> added postgis
 
 2.5.3
 ---------------------
