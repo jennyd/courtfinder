@@ -39,5 +39,5 @@ Courtfinder::Application.configure do
   config.postcode_lookup_service_url = 'http://mapit.mysociety.org/postcode'
 
   # Devise requirement
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 end

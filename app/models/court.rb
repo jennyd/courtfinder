@@ -171,6 +171,7 @@ class Court < ActiveRecord::Base
       if lat_lon = @cs.latlng_from_postcode(visiting_postcode)
         self.latitude = lat_lon[0]
         self.longitude = lat_lon[1]
+        self.add_geopoint
       end
     else
       self.latitude = nil
@@ -179,7 +180,7 @@ class Court < ActiveRecord::Base
   end   
 
   def add_geopoint
-    if latitude && longitude
+    if latitude && longitude && (latitude_changed? || longitude_changed?)
       factory = RGeo::Geographic.spherical_factory(srid: 4326)
       self.geopoint = factory.point(longitude, latitude)
     end
