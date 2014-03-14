@@ -358,7 +358,7 @@ DEPENDENCIES
   figaro
   fog (= 1.20.0)
   friendly_id
-  geocoder (= 1.1.7)
+  geocoder
   global_phone
   gmaps4rails
   google_drive
