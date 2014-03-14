@@ -52,13 +52,6 @@ class Court < ActiveRecord::Base
   
   # callbacks
   before_save :add_geopoint
-
-  geocoded_by latitude: :lat, longitude: :lng do |obj, results|
-    if geo = results.first
-      obj.point = "POINT(#{geo.longitude}, #{geo.latitude}"
-    end
-  end
-  before_save :geocode
   
   mount_uploader :image_file, CourtImagesUploader
 
