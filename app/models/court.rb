@@ -1,7 +1,14 @@
 class Court < ActiveRecord::Base
   include Concerns::Court::Councils
 
+  # By default, use the GEOS implementation for spatial columns.
+  self.rgeo_factory_generator = RGeo::Geos.factory_generator
+  
+  # But use a geographic implementation for the :lonlat column.
+  set_rgeo_factory_for_column(:geopoint, RGeo::Geographic.spherical_factory(srid: 4326))
+
   attr_accessor :active_area_of_law
+  # associations
   belongs_to :area
   has_many :addresses
   has_many :opening_times
@@ -29,7 +36,7 @@ class Court < ActiveRecord::Base
   accepts_nested_attributes_for :court_facilities, allow_destroy: true
 
   before_validation :convert_visiting_to_location
-  
+
   validates :name, presence: true
 
   validates :latitude, numericality: { greater_than:  -90, less_than:  90 }, presence: true, if: :has_visiting_address?
@@ -42,14 +49,10 @@ class Court < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
-
-  geocoded_by latitude: :lat, longitude: :lng do |obj, results|
-    if geo = results.first
-      obj.point = "POINT(#{geo.longitude}, #{geo.latitude}"
-    end
-  end
-  before_save :geocode
   
+  # callbacks
+  before_save :add_geopoint
+
   mount_uploader :image_file, CourtImagesUploader
 
   acts_as_gmappable :process_geocoding => lambda { |obj| obj.addresses.first.address_line_1.present? },
@@ -166,7 +169,19 @@ class Court < ActiveRecord::Base
       end
     else
       self.latitude = nil
-      self.longitude = nil      
+      self.longitude = nil
+    end
+  end    
+
+  def add_geopoint
+    if latitude && longitude
+      factory = RGeo::Geographic.spherical_factory(srid: 4326)
+      self.geopoint = factory.point(longitude, latitude)
     end
   end
+
+  def has_visiting_address?
+    addresses.visiting.count > 0
+  end
+
 end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
-#source 'http://gems.dsd.io/' unless ENV['TRAVIS'] || ENV['HEROKU']
+source 'http://gems.dsd.io/' unless ENV['TRAVIS'] || ENV['HEROKU']
 
 gem 'rails', '3.2.17'
 gem 'pg'
@@ -47,7 +47,7 @@ gem 'will_paginate'         # Paging
 gem 'simple_form'           # Build forms with ease
 gem 'rest-client'           # Accessing HTTP and REST resources (i.e. MoJ postcode lookup)
 gem 'ckeditor_rails'        # Adds a rich WYSIWYG text area
-gem 'geocoder'              # Check distances with latitude and longitude
+gem 'geocoder', '1.1.7'     # Check distances with latitude and longitude
 gem 'activerecord-postgis-adapter'
 gem 'devise'                # Authentication
 gem 'devise_invitable'      # Authentication invites
