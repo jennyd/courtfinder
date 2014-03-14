@@ -1,13 +1,6 @@
 class Court < ActiveRecord::Base
   include Concerns::Court::Councils
 
-  # By default, use the GEOS implementation for spatial columns.
-  self.rgeo_factory_generator = RGeo::Geos.factory_generator
-  
-  # But use a geographic implementation for the :lonlat column.
-  set_rgeo_factory_for_column(:geopoint, RGeo::Geographic.spherical_factory(srid: 4326))
-
-  attr_accessor :active_area_of_law
   # associations
   belongs_to :area
   has_many :addresses
@@ -46,6 +39,7 @@ class Court < ActiveRecord::Base
 
   has_paper_trail ignore: [:created_at, :updated_at]
 
+  reverse_geocoded_by :latitude, :longitude
 
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
@@ -91,6 +85,17 @@ class Court < ActiveRecord::Base
       self
     end
   }
+
+  def self.gisnear(latlng, distance, *args)
+    options = args.extract_options!
+    options[:unit] ||= :mi
+    distance = distance * 1000 if options[:unit] && options[:unit] == :km
+    distance = distance / 0.00062137 if options[:unit] && options[:unit] == :mi
+
+    select("courts.*, ST_Distance(ST_GeomFromText('POINT(#{latlng[1]} #{latlng[0]})',4326), geopoint, true)*0.00062137 as distance").
+    where("geopoint is not NULL and ST_DWithin(ST_GeomFromText('POINT(#{latlng[1]} #{latlng[0]})',4326), geopoint, ?, true)", distance).
+    order("distance ASC")
+  end
 
   def locatable?
     longitude && latitude && !addresses.visiting.empty?
@@ -152,7 +157,7 @@ class Court < ActiveRecord::Base
   end
 
   def visiting_addresses
-    addresses.to_a.select { |a| AddressType.find(a.address_type_id).try(:name) == "Visiting" }
+    @visiting_addresses ||= addresses.visiting.to_a
   end
 
   def has_visiting_address?
@@ -171,7 +176,7 @@ class Court < ActiveRecord::Base
       self.latitude = nil
       self.longitude = nil
     end
-  end    
+  end   
 
   def add_geopoint
     if latitude && longitude
@@ -180,8 +185,5 @@ class Court < ActiveRecord::Base
     end
   end
 
-  def has_visiting_address?
-    addresses.visiting.count > 0
-  end
 
 end

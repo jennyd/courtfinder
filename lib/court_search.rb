@@ -27,7 +27,7 @@ class CourtSearch
         if @chosen_area_of_law = AreaOfLaw.find_by_name(@options[:area_of_law])
           courts = postcode_area_search(@chosen_area_of_law, latlng)
         else
-          courts = Court.visible.by_area_of_law(@options[:area_of_law]).near(latlng, @options[:distance] || 200).limit(20) if latlng
+          courts = Court.visible.by_area_of_law(@options[:area_of_law]).gisnear(latlng, @options[:distance] || 200).limit(20) if latlng
         end
         @errors << "We couldn't find that post code. Please try again." if courts.blank?
       else
@@ -76,9 +76,9 @@ class CourtSearch
     if latlng
       if courts.present?
         # Calling near just so that court.distance works in the view, courts without location (lon, lat) are filtered out.
-        courts = courts.near(latlng, 200, unit: :mi)
+        courts = courts.gisnear(latlng, 200, unit: :mi)
       else
-        courts = Court.visible.by_area_of_law(@options[:area_of_law]).near(latlng, @options[:distance] || 200).limit(20)
+        courts = Court.visible.by_area_of_law(@options[:area_of_law]).gisnear(latlng, @options[:distance] || 200).limit(20)
         courts = courts.limit(1) if area_of_law.type_possession? || area_of_law.type_money_claims? || area_of_law.type_bankruptcy?
       end
     end
@@ -102,7 +102,7 @@ class CourtSearch
   end
 
   def not_found_error
-    { code: 404, error: 'Postcode not found' }
+    {code: 404, error: 'Postcode not found'}
   end
 
 end
