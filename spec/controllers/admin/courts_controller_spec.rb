@@ -7,12 +7,8 @@ describe Admin::CourtsController do
     controller.should_receive(:enable_varnish).never
     @user = User.create!(name: 'hello', admin: true, email: 'lol@biz.info', password: 'irrelevant')
     sign_in @user
-<<<<<<< HEAD:spec/controllers/admin/courts_controller_spec.rb
     @court = create(:court, name: 'A court of Law')    
-=======
-    @court = FactoryGirl.create(:court, name: 'A court of Law')   
-    @county = FactoryGirl.create(:court_type, :name => "County Court") 
->>>>>>> 5064aaf... Make court types a required attribute of courts:spec/controllers/admin_courts_controller_spec.rb
+    @county = create(:court_type, :name => "County Court") 
   end
 
   it "displays a list of courts" do
