@@ -53,6 +53,13 @@ class Court < ActiveRecord::Base
   # callbacks
   before_save :add_geopoint
 
+  geocoded_by latitude: :lat, longitude: :lng do |obj, results|
+    if geo = results.first
+      obj.point = "POINT(#{geo.longitude}, #{geo.latitude}"
+    end
+  end
+  before_save :geocode
+  
   mount_uploader :image_file, CourtImagesUploader
 
   acts_as_gmappable :process_geocoding => lambda { |obj| obj.addresses.first.address_line_1.present? },
