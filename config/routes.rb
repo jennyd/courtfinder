@@ -77,9 +77,9 @@ Courtfinder::Application.routes.draw do
 
   resources :api_docs, only: [:index]
 
-  constraints(format: /csv|json|xml/) do
+  #constraints(format: /csv|json|xml/) do
     mount API => '/'
-  end
+  #end
 
   root :to => 'home#index'
 

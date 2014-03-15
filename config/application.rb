@@ -27,7 +27,7 @@ module Courtfinder
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
+    # config.time_zone = 'Centrxal Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -65,6 +65,8 @@ module Courtfinder
       gov-static/gov-print.css
       moj-base.css
       gov-static/gov-ie.js
+      swagger-ui.css
+      swagger.js
     )
 
     # Version of your assets, change this if you want to expire all your assets

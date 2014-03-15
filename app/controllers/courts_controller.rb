@@ -78,6 +78,7 @@ class CourtsController < ApplicationController
   end
 
   private
+  
   def find_court
     @court = Court.find(params[:id])
   end

@@ -3,8 +3,8 @@ module Courtfinder
 
     desc 'Get postcodes'
     get :postcodes do
-      present { sucess: true }
+      present success: true
     end
-    
+
   end
 end
