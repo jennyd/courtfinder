@@ -75,6 +75,10 @@ Courtfinder::Application.routes.draw do
   
   get '/api' => 'home#api'
 
+  constraints(format: /csv|json|xml/) do
+    mount API => '/'
+  end
+
   root :to => 'home#index'
 
   resource :feedback

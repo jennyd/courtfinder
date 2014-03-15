@@ -41,6 +41,13 @@ group :assets do
   gem 'turbo-sprockets-rails3'
 end
 
+
+# API
+gem 'rack-cors'
+gem 'grape', github: 'intridea/grape'
+gem 'grape-swagger', github: 'danhawkins/grape-swagger'
+
+
 gem 'jquery-rails', '~> 2.1'# Rails unobtrusive scripting adapter for jQuery
 gem 'friendly_id'           # Custom addresses instead of Ids
 gem 'will_paginate'         # Paging

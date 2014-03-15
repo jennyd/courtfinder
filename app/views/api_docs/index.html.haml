@@ -1,0 +1,25 @@
+!!! 5
+%html(lang="en")
+  %head
+    %meta(charset="utf-8")
+    %title Courtfinder API
+
+    = stylesheet_link_tag '//fonts.googleapis.com/css?family=Droid+Sans:400,700'
+    = stylesheet_link_tag 'swagger-ui'
+    = javascript_include_tag 'swagger'
+
+  %body
+    #header
+      .swagger-ui-wrap
+        %a#logo{href: 'http://swagger.worknik.com'} swagger
+
+        %form#api_selector
+
+          .input
+            %input#input_baseUrl{placeholder:"http://example.com/api", name: "baseUrl", type: "text"}
+
+
+    #message-bar.swagger-ui-wrap
+
+    #swagger-ui-container.swagger-ui-wrap
+
