@@ -11,9 +11,9 @@ $form_color: #0f6ab4;
 $error_color: #cc0000;
 $notice_color: #007f00;
 
-$body_width: 960px;
-$main_column_width: 630px;
-$main_column_margin_right: 30px;
+$body_width: 1020px;
+$main_column_width: 1020px;
+$main_column_margin_right: 0px;
 
 @import "compass/reset";
 @import "compass/css3";
@@ -23,17 +23,28 @@ $main_column_margin_right: 30px;
 @import "custom_mixins";
 
 body {
-  font-family: "Droid Sans", sans-serif;
+  article{
+    ul{
+      margin:0;
+      padding:0;
+      li{
+        margin:0;
+        padding:0;
+      }
+    }
+  }
+
+
   #content_message {
-    margin: 10px 15px;
+    margin: 0;
     font-style: italic;
     color: #999999;
   }
   #header {
     background-color: $main_color_light;
-    padding: 14px;
+    padding: 6px;
     a#logo {
-      font-size: 1.5em;
+      font-size: 0.8em;
       font-weight: bold;
       text-decoration: none;
       background: transparent image_url("http://swagger.wordnik.com/images/logo_small.png") no-repeat left center;
@@ -73,8 +84,8 @@ body {
     }
   }
   p#colophon {
-    margin: 0 15px 40px 15px;
-    padding: 10px 0;
+    margin: 0;
+    padding: 0;
     font-size: 0.8em;
     border-top: 1px solid #dddddd;
     @include droid_sans;
@@ -86,9 +97,8 @@ body {
     }
   }
   ul#resources {
-    padding: 0 15px;
-    font-family: "Droid Sans", sans-serif;
-    font-size: 0.9em;
+    padding: 0 5px;
+    font-size: 0.6em;
     li.resource {
       border-bottom: 1px solid #dddddd;
       &:last-child {
@@ -112,7 +122,7 @@ body {
         ul.options {
           @include horizontal_list;
           @include float_right;
-          margin: 14px 10px 0 0;
+          margin: 0;
           li {
             color: #666666;
             font-size: 0.9em;
