@@ -12,8 +12,8 @@
 		<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery.ui.theme.css" rel="stylesheet" type="text/css"/>
 		<%= csrf_meta_tags %>
 	<% end %>
-	<%= stylesheet_link_tag "admin", :media => "all" if admin_area? %>
-	<%= stylesheet_link_tag "print", :media => "print" %>
+	<%= stylesheet_link_tag 'admin', media: 'all' if admin_area? %>
+	<%= stylesheet_link_tag 'print', media: 'print' %>
 
 	<!--[if lte IE 7]>
 	<style type="text/css">

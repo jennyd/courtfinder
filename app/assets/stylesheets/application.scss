@@ -87,6 +87,18 @@ article{
   .intro {
     padding:0 0 1em 0; 
   }
+
+  #swagger-ui-container{
+    li{
+      list-style: none;
+    }
+    .heading{
+      h2{
+        margin:0;
+      }
+    }
+
+  }
 }
 
 .char-limit {
