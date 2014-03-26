@@ -67,16 +67,6 @@ class CourtsController < ApplicationController
     end
   end
 
-  def postcodes
-    set_cache_control(Court.maximum(:updated_at)) && return
-    @postcode_courts = PostcodeCourt.all
-    respond_to do |format|
-        format.csv do
-          render text: postcodes_csv
-        end
-    end
-  end
-
   private
   
   def find_court
@@ -85,17 +75,6 @@ class CourtsController < ApplicationController
   
   def set_page_expiration
     set_cache_control(@court.updated_at)
-  end
-
-  def postcodes_csv
-    @courts_by_id = Hash[Court.all.index_by(&:id)]
-    CSV.generate do |csv|
-      csv << ["Post code", "Court number", "Court name"]
-      @postcode_courts.each do |postcode|
-        @court = @courts_by_id[postcode.court_id]
-        csv << [postcode.postcode, @court.name, @court.cci_code ? @court.cci_code : @court.court_number]
-      end
-    end
   end
 
   def courts_csv

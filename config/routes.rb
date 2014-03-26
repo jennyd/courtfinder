@@ -4,7 +4,6 @@ Courtfinder::Application.routes.draw do
   # TODO: This needs tidying
   scope 'courts', :controller => :courts do
     match '/' => :index, :as => :courts
-    match '/postcodes' => :postcodes, :as => :postcodes
     match '/:id' => :show, :as => :court
     match '/:id/leaflets' => :information, :as => :information
     match '/:id/leaflets/defence' => :defence, :as => :defence
@@ -46,7 +45,6 @@ Courtfinder::Application.routes.draw do
       collection do
         get :areas_of_law
         get :court_types
-        get :postcodes
         get :family
         get :audit
       end
@@ -78,7 +76,7 @@ Courtfinder::Application.routes.draw do
   resources :api_docs, only: [:index]
 
   #constraints(format: /csv|json|xml/) do
-    mount API => '/'
+  mount API => '/'
   #end
 
   root :to => 'home#index'
