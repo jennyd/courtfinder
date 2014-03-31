@@ -69,6 +69,7 @@ describe CourtSearch do
   it "should return courts nearby for postcodes limited to area of law" do
     court_search = CourtSearch.new('sl58le', {:area_of_law => 'Civil'})
     court_search.stub!(:latlng_from_postcode).and_return([51.419069727514, -0.69702060464972])
+
     expect(court_search.results.fetch(:found_in_area_of_law)).to be > 0
     court_search.results.fetch(:courts).should == [@court3]
   end
@@ -119,8 +120,8 @@ describe CourtSearch do
   it "should return an error when the postcode cannot be found for a complete postcode" do
     VCR.use_cassette('postcode_not_found') do
       cs = CourtSearch.new('T27 4DB')
-      cs.results.fetch(:courts).should be_empty
-      cs.should have(1).errors
+      expect(cs.results.fetch(:courts)).to be_empty
+      expect(cs).to have(1).errors
     end
   end
 
@@ -165,9 +166,10 @@ describe CourtSearch do
 
     it "if the postcode is not found in the Postcode to court mapping, then just default to distance search, but return only the nearest one court" do
       VCR.use_cassette('postcode_found') do
-        court_search = CourtSearch.new('NE128AQ', {:area_of_law => 'Possession'})
+        court_search = CourtSearch.new('NE128AQ', { area_of_law: 'Possession' })
         expect(court_search.results.fetch(:found_in_area_of_law)).to eq 1
-        court_search.results.fetch(:courts).should == [@court8]
+
+        expect(court_search.results.fetch(:courts).map(&:id)).to eq([@court8].map(&:id))
       end
     end
   end
@@ -179,7 +181,7 @@ describe CourtSearch do
       VCR.use_cassette('postcode_found') do
         @court7 = create(:court, :court_number => 434, :name => 'Money Claims Court', :display => true,
                                       :area_of_law_ids => [@money_claims.id], :address_ids => [@visiting_address3.id])
-        @court8 = create(:court, :name => 'The Nearest Money Claims Court', :display => true, :areas_of_law => [@money_claims],
+        @court8 = create(:court, :name => 'The Nearest Money Claims Court', :display => true, :area_of_law_ids => [@money_claims.id],
                         :address_ids => [@visiting_address1.id])
 
       end

@@ -87,6 +87,7 @@ class Court < ActiveRecord::Base
   }
 
   def self.gisnear(latlng, distance, *args)
+    raise Exception.new("cannot call #near without latlng") if !latlng || latlng.nil? || latlng.reject(&:blank?).empty?
     options = args.extract_options!
     options[:unit] ||= :mi
     distance = distance * 1000 if options[:unit] && options[:unit] == :km

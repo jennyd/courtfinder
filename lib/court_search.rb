@@ -28,7 +28,7 @@ class CourtSearch
         if @chosen_area_of_law.present?
           courts = postcode_area_search(@chosen_area_of_law, latlng)
         else
-          courts = Court.visible.by_area_of_law(@options[:area_of_law]).gisnear(latlng, @options[:distance] || 200).limit(20) if latlng
+          courts = Court.visible.by_area_of_law(@options[:area_of_law]).gisnear(latlng, @options[:distance] || 200).limit(20) unless !latlng || latlng.nil? || latlng.reject(&:blank?).empty?
         end
         @errors << "We couldn't find that post code. Please try again." if courts.blank?
       else
