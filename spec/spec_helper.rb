@@ -42,16 +42,20 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation, {:except => %w[spatial_ref_sys]}
+    DatabaseCleaner.clean_with :truncation, { except: %w[spatial_ref_sys] }
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean
   end
 
   config.before(:each) do
-    DatabaseCleaner.start
+    Timecop.freeze
   end
 
   config.after(:each) do
-    DatabaseCleaner.clean
+    Timecop.return
   end
+
+
 end
 
 require 'vcr'
