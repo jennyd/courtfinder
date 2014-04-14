@@ -77,6 +77,7 @@ Courtfinder::Application.routes.draw do
   
   get '/index_area_of_law' => 'home#index_aol'
   get '/api' => 'home#api'
+  get '/court_types' => 'home#court_types'
 
   root :to => 'home#index'
 
