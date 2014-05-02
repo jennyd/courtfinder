@@ -31,33 +31,33 @@
 		<fieldset>
 			<legend class="visuallyhidden">Postcode lookup</legend>
 			<div class="ask_location">
-				<label for="search-main">Enter a UK postcode, court or tribunal name<br />
-					<input class="postcode" id="search-main" name="q" type="text" placeholder="e.g. SW1H9AJ or Liverpool Crown Court" autocomplete="off" />
-				</label>
+				<div>
+					<label for="search-by-postcode">Search by postcode<br />
+	          <input class="postcode" id="search-by-postcode" name="q" type="text" placeholder="e.g. SW1H9AJ or Liverpool Crown Court" autocomplete="off" />
+            <%
+              options = ''
+              @areas_of_law.each do | title, list |
+                if title == 'top-level'
+                  options += options_for_select(list)
+                else
+                  options += grouped_options_for_select( { title => list }, nil )
+                end
+              end
 
-				<div id="results"></div>
-
-				<div id="filters">
-					<label for="area_of_law">Area of law (optional)<br />
-						<%
-							options = ''
-							@areas_of_law.each do | title, list |
-								if title == 'top-level'
-									options += options_for_select(list)
-								else
-									options += grouped_options_for_select( { title => list }, nil )
-								end
-							end
-
-							options += "<option value>All law</option>"
-						%>
-						<%= select_tag "area_of_law",
-								options,
-								:prompt => 'Please select an area of law …'
-						%>
-					</label>
-					<button type="submit" class="button">Search</button>
+              options += "<option value>All law</option>"
+            %>
+            <%= select_tag "area_of_law",
+                options,
+                :prompt => 'Please select an area of law …'
+            %>
+          </label>
 				</div>
+				<div>
+					<label for="search-by-court-name">or search by court or tribunal name<br />
+	          <input class="postcode" id="search-by-court-name" name="q" type="text" placeholder="e.g. SW1H9AJ or Liverpool Crown Court" autocomplete="off" />
+					</label>
+				</div>
+        <button type="submit" class="button">Search</button>
 			</div>
 		</fieldset>
 	</form>
