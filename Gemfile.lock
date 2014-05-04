@@ -90,11 +90,7 @@ GEM
     arel (3.0.3)
     atomic (1.1.15)
     awesome_print (1.1.0)
-    axiom-types (0.1.0)
-      descendants_tracker (~> 0.0.3)
-      ice_nine (~> 0.11.0)
-      thread_safe (~> 0.1.3)
-    bcrypt-ruby (3.0.1)
+    bcrypt (3.1.7)
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -136,16 +132,15 @@ GEM
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
-    descendants_tracker (0.0.3)
-    devise (2.2.3)
-      bcrypt-ruby (~> 3.0)
+    devise (3.2.4)
+      bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (~> 3.1)
-      warden (~> 1.2.1)
-    devise_invitable (1.1.6)
-      actionmailer (~> 3.0)
-      devise (>= 2.1.2)
-      railties (~> 3.0)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
+    devise_invitable (1.3.4)
+      actionmailer (>= 3.2.6, < 5)
+      devise (>= 3.2.0)
     diff-lcs (1.2.1)
     em-websocket (0.5.0)
       eventmachine (>= 0.12.9)
@@ -161,6 +156,8 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    faker (1.3.0)
+      i18n (~> 0.5)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     ffi (1.9.3)
@@ -236,6 +233,8 @@ GEM
     kramdown (1.3.2)
     launchy (2.4.2)
       addressable (~> 2.3)
+    letter_opener (1.2.0)
+      launchy (~> 2.2)
     listen (2.7.0)
       celluloid (>= 0.15.2)
       celluloid-io (>= 0.15.0)
@@ -252,7 +251,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.1)
-    multi_json (1.8.4)
+    multi_json (1.9.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-scp (1.1.2)
@@ -269,7 +268,7 @@ GEM
       multi_json (~> 1.0)
       multi_xml (~> 0.5)
       rack (~> 1.2)
-    orm_adapter (0.4.0)
+    orm_adapter (0.5.0)
     paper_trail (3.0.0)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
@@ -286,10 +285,7 @@ GEM
       rack (>= 0.4)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
-    rack-cors (0.2.9)
-    rack-mount (0.8.3)
-      rack (>= 1.0.0)
-    rack-ssl (1.3.3)
+    rack-ssl (1.3.4)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -309,7 +305,7 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     raindrops (0.11.0)
-    rake (10.1.1)
+    rake (10.2.2)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
@@ -351,10 +347,16 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+<<<<<<< HEAD
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
+=======
+    thor (0.19.1)
+    thread_safe (0.3.3)
+>>>>>>> develop
     tilt (1.4.1)
+    timecop (0.7.1)
     timers (1.1.0)
     treetop (1.4.15)
       polyglot
@@ -375,12 +377,7 @@ GEM
     verbs (2.1.4)
       activesupport (>= 2.3.4)
       i18n
-    virtus (1.0.2)
-      axiom-types (~> 0.1)
-      coercible (~> 1.0)
-      descendants_tracker (~> 0.0.3)
-      equalizer (~> 0.0.9)
-    warden (1.2.1)
+    warden (1.2.3)
       rack (>= 1.0)
     webmock (1.15.2)
       addressable (>= 2.2.7)
@@ -407,6 +404,7 @@ DEPENDENCIES
   devise
   devise_invitable
   factory_girl_rails
+  faker
   figaro
   fog (= 1.20.0)
   friendly_id
@@ -426,6 +424,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails (~> 2.1)
   launchy
+  letter_opener
   meta_request
   moj_frontend_toolkit_gem!
   nokogiri
@@ -442,6 +441,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda-matchers
   simple_form
+  timecop
   turbo-sprockets-rails3
   uglifier (>= 1.0.3)
   unicorn

@@ -10,6 +10,7 @@ gem 'pry'
 gem 'awesome_print'
 
 group :development, :test do
+  gem 'faker'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
@@ -24,11 +25,13 @@ group :development, :test do
   gem 'guard'
   gem 'guard-livereload'
   gem 'hirb'
+  gem 'letter_opener'
 end
 
 group :test do
   gem 'webmock', '= 1.15.2'
   gem 'vcr'
+  gem 'timecop'
 end
 
 

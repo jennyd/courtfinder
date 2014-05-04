@@ -25,6 +25,9 @@ Courtfinder::Application.routes.draw do
     match '/' => :index, :as => :regions
     match '/:id' => :show, :as => :region
   end
+  scope 'postcodes', :controller => :postcodes do
+    match '/repossession' => :repossession, :as => :repossession
+  end
 
   resources :councils, only: [:index, :show]
 
@@ -71,6 +74,7 @@ Courtfinder::Application.routes.draw do
     resources :areas
   end
   
+  get '/index_area_of_law' => 'home#index_aol'
   get '/api' => 'home#api'
 
   resources :api_docs, only: [:index]

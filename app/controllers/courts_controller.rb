@@ -3,8 +3,8 @@ class CourtsController < ApplicationController
   respond_to :html, :json, :csv
 
   before_filter :enable_varnish
-  before_filter :find_court, except: [:index, :postcodes]
-  before_filter :set_page_expiration, except: [:index, :postcodes]
+  before_filter :find_court, except: [:index]
+  before_filter :set_page_expiration, except: [:index]
   before_filter :set_vary_accept, only: [:index, :show]
   
   def index
@@ -19,7 +19,9 @@ class CourtsController < ApplicationController
     else
       respond_to do |format|
         format.html
-        format.json
+        format.json do
+          render content_type:'application/ld+json'
+        end
         format.csv do
           render text: courts_csv
         end
@@ -63,7 +65,12 @@ class CourtsController < ApplicationController
     if request.path != court_path(@court, format: params[:format])
       redirect_to court_path(@court, format: params[:format]), status: :moved_permanently
     else
-      respond_with @court
+      respond_to do |format|
+        format.html
+        format.json do
+          render content_type:'application/ld+json'
+        end
+      end
     end
   end
 

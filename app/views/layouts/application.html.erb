@@ -2,11 +2,12 @@
 <!--[if lt IE 9]><html class="lte-ie8 " lang="en"><![endif]-->
 <!--[if gt IE 8]><!--><html lang="en" class=""><!--<![endif]-->
 <head>
+	<%= yield(:head) %>
+
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
 	<%= render 'shared/head', :title => (content_for?(:title) ? yield(:title) + " - GOV.UK" : "GOV.UK - The best place to find government services and information") %>
-	<%= render 'shared/ga' %>
-
+  <%= render 'shared/ga' %>
 	<%- if admin_area? %>
 		<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery.ui.base.css" rel="stylesheet" type="text/css"/>
 		<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery.ui.theme.css" rel="stylesheet" type="text/css"/>
@@ -53,10 +54,9 @@
 
 	<div id="wrapper" class="group <%= yield :type %>">
 		<section id="content" role="main" class="group" <%= yield :contentMetadata %>>
-			<% if alert.present? %>
-				<p class="alert"><%= alert %></p>
+			<% flash.each do |type, message| %>
+				<p class="alert <%=type%>"><%= message %></p>
 			<% end %>
-
 			<header class="page-header group">
 				<%= yield :title_image %>
 				<h1 <%= yield :titleMetadata %>>

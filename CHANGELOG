@@ -1,4 +1,34 @@
-2.6.0-dev
+2.9.0-dev
+--------------------
+
+2.8.0
+--------------------
+* JSON-LD API: use better media type application/ld+json
+* Rake task admin:create throws an error now (usually when the password is invalid)
+* 67545050 - Phone number validation - don't allow entering more than 13 digits, not including the spaces
+* 69258314 - Invite user fails
+
+2.7.2
+---------------------
+* Fixed code position
+
+2.7.1
+---------------------
+* Added first page for A/B testing
+
+2.7.0
+---------------------
+*
+
+2.6.1
+---------------------
+* 67752650 - BUG: while searching for search?q=Dn31+1pd&area_of_law=Employment error 500
+* 66813762 - Require change of lat/lon when admin changes visiting address post code
+* 67842856 - Display for multiple addresses is messed up
+* 67843182 - Extraneous 'f' characters appearing for Opening times
+* 67845888 - Copy for searches for divorce/adoption/children is not always showing (3 pts)
+
+2.6.0
 ---------------------
 * 65905292 - Phone number editing - don't allow duplicate numbers to be entered
 * 66808486 - Don't show lat long validation error if visiting address
@@ -17,7 +47,6 @@
 * 66609752 - Search Family court for divorce application
 * 67486836 - BUG: Multiple search results
 * 66808486 - Don't show error if visiting address is not set and no lat/lon
-* 66813762 - Require change of lat/lon when admin changes visiting address post code
 
 2.5.4
 ---------------------

@@ -1,7 +1,6 @@
 class Court < ActiveRecord::Base
   include Concerns::Court::Councils
 
-  attr_accessor :active_area_of_law
   belongs_to :area
   has_many :addresses
   has_many :opening_times
@@ -38,7 +37,6 @@ class Court < ActiveRecord::Base
   validate :check_postcode_errors
 
   has_paper_trail ignore: [:created_at, :updated_at]
-
 
   extend FriendlyId
   friendly_id :name, use: [:slugged, :history]
@@ -109,8 +107,7 @@ class Court < ActiveRecord::Base
   end
 
   def is_county_court?
-    # 31 is the ID of county court
-    court_types.pluck(:id).include? 31
+    court_types.any?{|ct| ct.name == 'County Court'}
   end
 
   def postcode_list
@@ -154,10 +151,14 @@ class Court < ActiveRecord::Base
 
   def convert_visiting_to_location
     if visiting_postcode = visiting_addresses.first.try(:postcode)
-      @cs = CourtSearch.new(visiting_postcode)
-      if lat_lon = @cs.latlng_from_postcode(visiting_postcode)
-        self.latitude = lat_lon[0]
-        self.longitude = lat_lon[1]
+      begin  
+        @cs = CourtSearch.new(visiting_postcode)
+        if lat_lon = @cs.latlng_from_postcode(visiting_postcode)
+          self.latitude = lat_lon[0]
+          self.longitude = lat_lon[1]
+        end
+      rescue Exception => ex
+        Rails.logger.error("Could not get latlng from: visiting_postcode")
       end
     else
       self.latitude = nil
