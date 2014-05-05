@@ -1,5 +1,6 @@
 Courtfinder::Application.routes.draw do
-
+  mount API => '/'
+  
   # Public court pages
   # TODO: This needs tidying
   scope 'courts', :controller => :courts do
@@ -80,7 +81,7 @@ Courtfinder::Application.routes.draw do
   resources :api_docs, only: [:index]
 
   #constraints(format: /csv|json|xml/) do
-  mount API => '/'
+  
   #end
 
   root :to => 'home#index'

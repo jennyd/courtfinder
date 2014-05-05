@@ -5,8 +5,8 @@ module Courtfinder
 
       desc 'Get postcodes'
       get :postcodes do
-        set_cache_control(Court.maximum(:updated_at))
-        @postcode_courts = PostcodeCourt.include(:court).all
+        @postcode_courts = PostcodeCourt.includes(:court).all
+        csv = []
         CSV.generate do |csv|
           csv << ["Post code", "Court number", "Court name"]
           @postcode_courts.each do |postcode|
