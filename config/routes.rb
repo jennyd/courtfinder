@@ -5,33 +5,7 @@ Courtfinder::Application.routes.draw do
   scope 'courts', :controller => :courts do
     match '/' => :index, :as => :courts
     match '/:id' => :show, :as => :court
-    # match '/:id/leaflets' => :information, :as => :information
-    # match '/:id/leaflets/defence' => :defence, :as => :defence
-    # match '/:id/leaflets/prosecution' => :prosecution, :as => :prosecution
-    # match '/:id/leaflets/juror' => :juror, :as => :juror
   end
-  # scope 'court-types', :controller => :court_types do
-  #   match '/' => :index, :as => :court_types
-  #   match '/:id' => :show, :as => :court_type
-  # end
-  # scope 'areas-of-law', :controller => :areas_of_law do
-  #   match '/' => :index, :as => :areas_of_law
-  #   match '/:id' => :show, :as => :area_of_law
-  # end
-  # scope 'search', :controller => :search do
-  #   match '/' => :index, :as => :search
-  # end
-  # scope 'regions', :controller => :regions do
-  #   match '/' => :index, :as => :regions
-  #   match '/:id' => :show, :as => :region
-  # end
-  # scope 'postcodes', :controller => :postcodes do
-  #   match '/repossession' => :repossession, :as => :repossession
-  # end
-
-  # get '/search/:area_of_law', to: 'home#index', as: 'area_of_law_landing'
-
-  # resources :councils, only: [:index, :show]
 
   # Admin section
   get 'admin', to: redirect('/admin/courts')
@@ -79,10 +53,9 @@ Courtfinder::Application.routes.draw do
     resources :areas
   end
 
-  # get '/index_area_of_law', to: redirect('/')
   get '/api' => 'home#api'
 
-  root :to => 'home#index'
+  root :to => redirect('/admin/courts')
 
   resource :feedback
 end

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="lte-ie8 " lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class=""><!--<![endif]-->
+<head>
+    <%= yield(:head) %>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <%= render 'shared/head', :title => (content_for?(:title) ? yield(:title) + " - GOV.UK" : "GOV.UK - The best place to find government services and information") %>
+    <%- if admin_area? %>
+        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery.ui.base.css" rel="stylesheet" type="text/css"/>
+        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery.ui.theme.css" rel="stylesheet" type="text/css"/>
+        <%= csrf_meta_tags %>
+    <% end %>
+    <%= stylesheet_link_tag "admin", :media => "all" if admin_area? %>
+    <%= stylesheet_link_tag "print", :media => "print" %>
+
+    <!--[if lte IE 7]>
+    <style type="text/css">
+        .inner div.addresses{width:560px}
+    </style>
+    <![endif]-->
+    
+</head>
+
+<body id="<%= controller.controller_name %>-<%= controller.action_name %>" class="<%= controller.controller_name %> service beta full-width">
+    <script type="text/javascript">document.body.className = document.body.className + ' js-enabled';</script>
+
+    <a href="#content" class="visuallyhidden">Skip to main content</a>
+
+  <%= render 'shared/header' %>
+  <%= render 'shared/cookie_message' %>
+  <%= render 'shared/survey' %>
+
+
+    <div id="global-browser-prompt">
+        <p>For a safer, faster, better experience online you should upgrade your browser. <a href="/support/browsers">Find out more about browsers</a> <a href="#" class="dismiss" title="Dismiss this message">Close</a></p>
+    </div>
+
+    <%= render 'shared/phase_indicator' %>
+
+    <% unless home_page? %>
+    <div id="global-breadcrumb" class="header-context">
+        <nav role="navigation">
+            <%= render 'shared/admin_user' if admin_area? %>
+            <ol class="group">
+                <% unless admin_area? %>
+                    <li><a href="/">Home</a></li>
+                <% end %>
+                <%= yield :nav if content_for? :nav %>
+            </ol>
+        </nav>
+    </div>
+    <% end %>
+
+    <div id="wrapper" class="group <%= yield :type %>">
+        <section id="content" role="main" class="group" <%= yield :contentMetadata %>>
+            <header class="page-header group">
+                <%= yield :title_image %>
+                <h1 <%= yield :titleMetadata %>>
+                    <%= yield :title %>
+                </h1>
+            </header>
+
+            <div class="browse-container full-width group">
+                <article role="article" class="group">
+                    <div class="inner">
+
+                        <% if notice.present? %>
+                            <p id="user-notice"><%= notice %></p>
+                        <% end %>
+                        <%= yield %>
+
+                    </div>
+                </article>
+
+                <% if content_for?(:last_updated) %>
+                    <div class="meta-data group">
+                        <div class="inner">
+                            <p class="modified-date">Last updated: <%= yield :last_updated %></p>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </section>
+
+    </div>
+
+    <%= render 'shared/footer' %>
+
+    <div id="global-app-error" class="app-error hidden"></div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/assets/jquery.min.js">\x3C/script>')</script>
+    <%= javascript_include_tag "application" %>
+    <%- if admin_area? %>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+        <%= javascript_include_tag "admin" %>
+    <% end %>
+    <%= yield :scripts %>
+    <%= render 'shared/ga' %>
+</body>
+</html>
