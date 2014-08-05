@@ -79,6 +79,4 @@ gem 'paper_trail', '~> 3.0'
 gem 'figaro'
 gem 'google_drive'
 gem 'verbs'
-
-#Anotate tables
 gem 'annotate'
